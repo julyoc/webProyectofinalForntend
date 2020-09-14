@@ -1,1 +1,77 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Import normalize.css file. */
+@import '~normalize.css/normalize.css';
+
+/* Bootstrap theming */
+
+/* Custom grid layout. */
+$grid-columns: 18 !default;
+$grid-gutter-width: 1em !default;
+
+/* Custom colors. */
+$body-bg: white;
+$body-color: black;
+
+$theme-colors: (
+  "grey": #cfcfcf,
+  "ligth-grey": #eaeaea
+);
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* custom theme */
+
+$num-rd: (
+  "0": 0px,
+  "5": 5px,
+  "10": 10px,
+  "15": 15px,
+  "20": 20px,
+  "25": 25px,
+  "30": 30px,
+  "35": 35px,
+  "40": 40px,
+  "45": 45px,
+  "50": 50px
+);
+
+@each $color, $value in $theme-colors {
+  .bg-#{$color} {
+    background-color: $value;
+  }
+  .color-#{$color} {
+    color: $value;
+  }
+}
+
+@each $bor, $value in $num-rd {
+  .border-rd-#{$bor} {
+    border-radius: $value;
+  }
+}
+
+main {
+    position: relative;
+    top: 4.75em;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    color: white;
+    padding: 0.5em;
+    z-index: 99;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    padding: 1em;
+    z-index: 99;
+}
+
+tbody {
+  font-style: normal;
+}

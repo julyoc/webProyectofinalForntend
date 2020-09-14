@@ -1,0 +1,74 @@
+<main class="container" (mousemove)="openWithUsr(content)">
+    <section class="row">
+        <article class="col-12">
+            <h3>Crud Creadores</h3>
+        </article>
+        <article class="col">
+            <button class="btn btn-success" (click)="open(content)">Add Nuevo</button>
+        </article>
+    </section>
+    <section class="row">
+        <article class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Creaciones</th>
+                        <th scope="col">Categorias</th>
+                        <th scope="col"><fa-icon [icon]="icons.faTools"></fa-icon></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data; index as i">
+                        <th scope="row">{{i}}</th>
+                        <td>{{item.name}}</td>
+                        <td>{{item.creations}}</td>
+                        <td>{{item.categories}}</td>
+                        <td><a (click)="open(content, i)"><fa-icon [icon]="icons.faEdit"></fa-icon></a>&nbsp;&nbsp;<a (click)="delete(item.id)"><fa-icon [icon]="icons.faTrash"></fa-icon></a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+                <ngb-pagination [collectionSize]="collectionSize" class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" (pageChange)="refresh()"></ngb-pagination>
+            </div>
+        </article>
+    </section>
+</main>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Creadores: </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click'); edt()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="c('Save click'); save()">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="usr">Usuario: </label>
+                <select id="usr" class="form-control" required aria-placeholder="Seleccione">
+                    <option *ngFor="let opt of users" [ngValue]="opt.uid">{{opt.email}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nm">Nombre: </label>
+                <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="form-group">
+                <label for="cr">Creaciones: </label>
+                <textarea id="cr" class="form-control" cols="10" rows="3" formControlName="creations"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="cat">Usuario: </label>
+                <select id="usr" class="form-control" required aria-placeholder="Seleccione">
+                    <option *ngFor="let opt of categorias" [ngValue]="opt.id">{{opt.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" value="Guardar" class="btn btn-outline-dark" [disabled]="!form.valid">
+        </div>
+    </form>
+</ng-template>

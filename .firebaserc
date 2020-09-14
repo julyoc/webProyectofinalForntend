@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "proyecto-web-freelancer": {
+      "hosting": {
+        "front-end": [
+          "proyecto-web-freelancer"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+<footer class="container-fluid bg-info">
+    <div class="row">
+        <div class="offset-14"></div>
+        <div class="col" *ngIf="!isloged">
+            <button class="btn btn-warning" (click)="open(modal)">Log-In/Register</button>
+        </div>
+        <div class="col" *ngIf="isloged">
+            <button class="btn btn-warning" (click)="logOut()">Log-Out</button>
+        </div>
+    </div>
+</footer>
+<ng-template #modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4>Log-In/Register</h4>
+        <button class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form *ngIf="isl" [formGroup]="formreg" (ngSubmit)="sendFormreg(); d('Cross click')" class="container justify-content-end">
+        <div class="modal-body">
+            <div class="form-group row">
+                <div class="form-check form-check-inline col">
+                    <input type="radio" name="mode" id="lg" class="form-check-input" (click)="change(false)">
+                    <label for="lg" class="form-check-label">Log-In</label>
+                </div>
+                &nbsp;
+                <div class="form-check form-check-inline col">
+                    <input type="radio" name="mode" id="reg" class="form-check-input" checked (click)="change(true)">
+                    <label for="reg" class="form-check-label">Registrarse</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-8 col-form-label">E-mail:</label>
+                <div class="col">
+                    <input type="email" id="email" class="form-control" formControlName="email">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="pass" class="col-8 col-form-label">Contraseña:</label>
+                <div class="col">
+                    <input type="password" id="pass" class="form-control" formControlName="password">
+                </div>
+            </div>
+            <div *ngIf="isl">
+                <div class="form-group row">
+                    <label for="name" class="col-8 col-form-label">Nombre:</label>
+                    <div class="col">
+                        <input type="text" id="name" class="form-control" formControlName="name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="un" class="col-8 col-form-label">Nombre de Usuario:</label>
+                    <div class="col">
+                        <input type="text" id="un" class="form-control" formControlName="username">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="ss" class="col-8 col-form-label">Rol: </label>
+                    <div class="col">
+                        <select id="ss" class="form-control" formControlName="role">
+                            <option *ngFor="let rol of role" [ngValue]="rol">{{rol}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group">
+                <input type="submit" value="Enviar" class="btn btn-primary" [disabled]="!formreg.valid">
+            </div>
+        </div>
+    </form>
+    <form *ngIf="!isl" [formGroup]="form" (ngSubmit)="sendForm(); d('Cross click')" class="container justify-content-end">
+        <div class="modal-body">
+            <div class="form-group row">
+                <div class="form-check form-check-inline col">
+                    <input type="radio" name="mode" id="lg" class="form-check-input" checked (click)="change(false)">
+                    <label for="lg" class="form-check-label">Log-In</label>
+                </div>
+                &nbsp;
+                <div class="form-check form-check-inline col">
+                    <input type="radio" name="mode" id="reg" class="form-check-input" (click)="change(true)">
+                    <label for="reg" class="form-check-label">Registrarse</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="mail" class="col-8 col-form-label">E-mail:</label>
+                <div class="col">
+                    <input type="email" id="mail" class="form-control" formControlName="email">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="pass1" class="col-8 col-form-label">Contraseña:</label>
+                <div class="col">
+                    <input type="password" id="pass1" class="form-control" formControlName="password">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="form-group">
+                <input type="submit" value="Enviar" class="btn btn-primary" [disabled]="!form.valid">
+            </div>
+        </div>
+    </form>
+</ng-template>

@@ -1,0 +1,83 @@
+<main class="container">
+    <section class="row">
+        <article class="col-12">
+            <h3>Crud Usuarios</h3>
+        </article>
+        <article class="col">
+            <button class="btn btn-success" (click)="open(content)">Add Nuevo</button>
+        </article>
+    </section>
+    <section class="row">
+        <article class="offset-2"></article>
+        <article class="col"><h6>Filtrar por rol: </h6></article>
+        <article class="col"><a class="btn btn-link" (click)="onlyAdmin()">Admin</a></article>
+        <article class="col"><a class="btn btn-link" (click)="onlyClient()">Client</a></article>
+        <article class="col"><a class="btn btn-link" (click)="onlyCreator()">Creator</a></article>
+        <article class="col"><a class="btn btn-link" (click)="viewAll()"><strong>Todos</strong></a></article>
+    </section>
+    <section class="row">
+        <article class="col">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Nombre de usuario</th>
+                        <th scope="col">e-mail</th>
+                        <th scope="col">role</th>
+                        <th scope="col"><fa-icon [icon]="icons.faTools"></fa-icon></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data; index as i">
+                        <th scope="row">{{i}}</th>
+                        <td>{{item.customClaims.name}}</td>
+                        <td>{{item.customClaims.username}}</td>
+                        <td>{{item.email}}</td>
+                        <td>{{item.customClaims.role}}</td>
+                        <td><a (click)="open(content, i)"><fa-icon [icon]="icons.faEdit"></fa-icon></a>&nbsp;&nbsp;<a><fa-icon [icon]="icons.faTrash"></fa-icon></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </article>
+    </section>
+</main>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Usuarios</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click'); del()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <form [formGroup]="creatorForm" (ngSubmit)="c('Save click'); save()">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name" class="form-control" formControlName="name">
+            </div>
+            <div class="form-group">
+                <label for="un">Nombre de Usuario:</label>
+                <input type="text" id="un" class="form-control" formControlName="username">
+            </div>
+            <div class="form-group">
+                <label for="ss">Rol: </label>
+                <select id="ss" class="form-control" formControlName="role">
+                    <option *ngFor="let rol of role" [ngValue]="rol">{{rol}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" class="form-control" formControlName="email">
+            </div>
+            <div class="form-group" *ngIf="!dtid">
+                <label for="pass">Contraseña:</label>
+                <input type="password" id="pass" class="form-control" formControlName="password">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-success" *ngIf="dtid && creatorForm.value.role === 'creator'" routerLink="/creator" [queryParams]="{id: dtid}" (click)="d('Cross click')">Add Detalles del creador</a>
+            <input type="submit" class="btn btn-outline-dark" value="Guardar" [disabled]="!creatorForm.valid">
+        </div>
+    </form>
+</ng-template>

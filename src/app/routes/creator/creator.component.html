@@ -61,7 +61,7 @@
                 <textarea id="cr" class="form-control" cols="10" rows="3" formControlName="creations"></textarea>
             </div>
             <div class="form-group">
-                <label for="cat">Usuario: </label>
+                <label for="cat">Categoria: </label>
                 <select id="usr" class="form-control" required aria-placeholder="Seleccione">
                     <option *ngFor="let opt of categorias" [ngValue]="opt.id">{{opt.name}}</option>
                 </select>

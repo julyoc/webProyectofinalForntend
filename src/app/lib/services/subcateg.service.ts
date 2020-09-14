@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class SubcategService {
 
   private baseurl = 'https://proyecto-web-freelancer.web.app/api/v0/subcateg';
+  private id: any;
   private headers = new HttpHeaders({
     'Content-Type':  'application/json'
   });
@@ -21,7 +22,8 @@ export class SubcategService {
 
   constructor(private http: HttpClient, actrute: ActivatedRoute) {
     actrute.queryParams.subscribe(value => {
-      this.setCateg(value.id);
+      if (value.id) this.setCateg(value.id);
+      if (value.id) this.id = value.id;
     });
   }
 
@@ -45,7 +47,10 @@ export class SubcategService {
     return this.http.delete<{id: string, massage: string}>(this.baseurl.concat('?id=', id), {headers: this.headers}).pipe(catchError(this.handleError));
   }
 
-  len() {
+  len(id?: any) {
+    if (id || this.id) {
+      return this.http.get<{len: number}>(this.baseurl.concat('/', id, '/length'), {headers: this.headers}).pipe(catchError(this.handleError));
+    }
     return this.http.get<{len: number}>(this.baseurl.concat('/length'), {headers: this.headers}).pipe(catchError(this.handleError));
   }
 

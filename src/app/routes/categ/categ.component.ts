@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { faEdit, faTrash, faTools, faAtlas } from '@fortawesome/free-solid-svg-icons';
 import { Category } from '../../lib/models/category';
 import { CategoriaService } from '../../lib/services/categoria.service';
+import { SubcategService } from '../../lib/services/subcateg.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
 @Component({
   selector: 'app-categ',
   templateUrl: './categ.component.html',
@@ -25,7 +25,8 @@ export class CategComponent implements OnInit {
   collectionSize: number;
   editForm: FormGroup;
   dtid: any;
-  constructor(private categ: CategoriaService, config: NgbModalConfig, private modalService: NgbModal) {
+  repdata: Array<{name: string, value: any}>;
+  constructor(private categ: CategoriaService, config: NgbModalConfig, private modalService: NgbModal, private subcat: SubcategService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -38,15 +39,25 @@ export class CategComponent implements OnInit {
         this.categ.pag(this.pageSize, this.page).subscribe(value => {
           this.data= value;
           console.log(this.data, this.page);
+          this.categ.getAll().subscribe(valu => {
+            this.repdata =[];
+            valu.forEach(elem => {
+              this.subcat.len(elem.id).subscribe(vv => {
+                this.repdata.push({name: elem.name, value: vv.len});
+              });
+            });
+            console.log(this.repdata);
+          })
         });
       });
     } catch (e) {
       throw e;
     }
   }
-  
+
   ngOnInit(): void {
     this.refresh();
+    console.log(this.repdata);
   }
 
   open(content, i?) {

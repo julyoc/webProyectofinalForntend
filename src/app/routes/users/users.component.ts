@@ -27,6 +27,7 @@ export class UsersComponent implements OnInit {
   dtid: any;
   creatorForm: FormGroup;
   role = roles;
+  repdata: Array<{name: string, value: any}>;;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, private usr: AuthService) {
     config.backdrop = 'static';
@@ -38,6 +39,10 @@ export class UsersComponent implements OnInit {
       console.log(value);
       this.data = value;
       this.dataAll = value;
+      this.repdata = [];
+      this.repdata.push({name: 'admin', value: value.filter(value => value.customClaims.role === 'admin').length});
+      this.repdata.push({name: 'client', value: value.filter(value => value.customClaims.role === 'client').length});
+      this.repdata.push({name: 'creator', value: value.filter(value => value.customClaims.role === 'creator').length});
     });
   }
 

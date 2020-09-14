@@ -40,7 +40,7 @@ export class SubCategComponent implements OnInit {
         });
       });
     } catch(e) {
-      throw e;
+      console.error(e);
     }
   }
   

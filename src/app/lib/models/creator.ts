@@ -5,6 +5,7 @@ export class Creator {
     name?: string;
     creations?: string[] | string;
     categories?: Category | string;
+    ciudad?: string;
 }
 export interface Creator {
     id?: any;
@@ -12,4 +13,5 @@ export interface Creator {
     name?: string;
     creations?: string[] | string;
     categories?: Category | string;
+    ciudad?: string;
 }

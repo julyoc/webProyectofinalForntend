@@ -21,6 +21,8 @@ import { NgxLocalStorageModule } from 'ngx-localstorage';
 import { AngularFireModule } from '@angular/fire';
 import { credentials } from './credentials';
 import { UsersComponent } from './routes/users/users.component';
+import { ContractNewComponent } from './routes/contract-new/contract-new.component';
+import { MyContractsComponent } from './routes/my-contracts/my-contracts.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { UsersComponent } from './routes/users/users.component';
     CategComponent,
     ContractComponent,
     SubCategComponent,
-    UsersComponent
+    UsersComponent,
+    ContractNewComponent,
+    MyContractsComponent
   ],
   imports: [
     BrowserModule,

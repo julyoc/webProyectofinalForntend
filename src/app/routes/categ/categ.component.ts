@@ -39,19 +39,26 @@ export class CategComponent implements OnInit {
         this.categ.pag(this.pageSize, this.page).subscribe(value => {
           this.data= value;
           console.log(this.data, this.page);
-          this.categ.getAll().subscribe(valu => {
-            this.repdata =[];
-            valu.forEach(elem => {
-              this.subcat.len(elem.id).subscribe(vv => {
-                this.repdata.push({name: elem.name, value: vv.len});
-              });
-            });
-            console.log(this.repdata);
-          })
         });
       });
     } catch (e) {
       throw e;
+    }
+  }
+
+  openrep() {
+    try {
+      this.categ.getAll().subscribe(valu => {
+        this.repdata =[];
+        valu.forEach(elem => {
+          this.subcat.len(elem.id).subscribe(vv => {
+            this.repdata.push({name: elem.name, value: vv.len});
+          });
+        });
+        console.log(this.repdata);
+      })
+    } catch (error) {
+      throw error;
     }
   }
 

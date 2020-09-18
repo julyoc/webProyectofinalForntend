@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="offset-4"></div>
+    <div class="col">
+        <div class="card cd">
+            <div class="card-header">
+                <h5 class="card-title">{{data.name}}</h5>
+            </div>
+            <div class="card-body">
+                <h6 class="card-subtitle">Requerimientos:</h6>
+                <br>
+                <p class="card-text" *ngFor="let req of data.requerimientos; index as j">{{j+1}}.)   {{req}}</p>
+            </div>
+            <div class="card-footer">
+                <form [formGroup]="form" class="row" (ngSubmit)="onSubmit()">
+                    <div class="form-group col">
+                        <label for="p">Precio:</label>
+                        <input type="number"id="p" class="form-control" formControlName="precio">
+                    </div>
+                    <input type="submit" value="Guardar" class="btn btn-primary" [disabled]="!form.valid || data.valid || issubmit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>

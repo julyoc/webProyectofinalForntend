@@ -23,7 +23,7 @@ export class CreatorComponent implements OnInit {
     faTools
   };
   page = 1;
-  pageSize= 7;
+  pageSize= 4;
   collectionSize: number;
   data: Creator[];
   userid: User;
@@ -79,7 +79,8 @@ export class CreatorComponent implements OnInit {
             userId: new FormControl(this.userid.uid, [Validators.required]),
             name: new FormControl(this.userid.customClaims.name, [Validators.required]),
             creations: new FormControl('', [Validators.required]),
-            categories: new FormControl(this.categorias[0].id, [Validators.required])
+            categories: new FormControl('', [Validators.required]),
+            ciudad: new FormControl('', [Validators.required])
           });
           return;
         }
@@ -89,15 +90,17 @@ export class CreatorComponent implements OnInit {
             userId: new FormControl(this.data[i].userId, [Validators.required]),
             name: new FormControl(this.data[i].name, [Validators.required]),
             creations: new FormControl(this.data[i].creations, [Validators.required]),
-            categories: new FormControl(this.data[i].categories, [Validators.required])
+            categories: new FormControl(this.data[i].categories, [Validators.required]),
+            ciudad: new FormControl(this.data[i].ciudad, [Validators.required])
           });
           return;
         }
         this.form = new FormGroup({
-          userId: new FormControl(this.users[0].uid, [Validators.required]),
+          userId: new FormControl('', [Validators.required]),
           name: new FormControl('', [Validators.required]),
           creations: new FormControl('', [Validators.required]),
-          categories: new FormControl(this.categorias[0].id, [Validators.required])
+          categories: new FormControl('', [Validators.required]),
+          ciudad: new FormControl('', [Validators.required])
         });
       });
     });

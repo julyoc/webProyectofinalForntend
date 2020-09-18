@@ -1,0 +1,16 @@
+<div class="card cd">
+    <div class="card-header">
+        <h5 class="card-title">{{data.name}}</h5>
+    </div>
+    <div class="card-body">
+        <h6 class="card-subtitle">Lista de Creaciones: </h6>
+        <p class="catd-text">{{data.creations}}</p>
+        <br>
+        <fa-icon [icon]="icons.adress"></fa-icon>
+        <p class="card-text"><strong>{{data.ciudad}}</strong></p>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-success" (click)="selec(data.id)">Seleccionar Creador</button>
+    </div>
+</div>
+<br>

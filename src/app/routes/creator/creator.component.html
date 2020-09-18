@@ -16,6 +16,7 @@
                         <th scope="col">Nombre</th>
                         <th scope="col">Creaciones</th>
                         <th scope="col">Categorias</th>
+                        <th scope="col">Ciudad</th>
                         <th scope="col"><fa-icon [icon]="icons.faTools"></fa-icon></th>
                     </tr>
                 </thead>
@@ -25,6 +26,7 @@
                         <td>{{item.name}}</td>
                         <td>{{item.creations}}</td>
                         <td>{{item.categories}}</td>
+                        <td>{{item.ciudad}}</td>
                         <td><a (click)="open(content, i)"><fa-icon [icon]="icons.faEdit"></fa-icon></a>&nbsp;&nbsp;<a (click)="delete(item.id)"><fa-icon [icon]="icons.faTrash"></fa-icon></a></td>
                     </tr>
                 </tbody>
@@ -48,7 +50,7 @@
         <div class="modal-body">
             <div class="form-group">
                 <label for="usr">Usuario: </label>
-                <select id="usr" class="form-control" required aria-placeholder="Seleccione">
+                <select id="usr" class="form-control" required aria-placeholder="Seleccione" formControlName="userId">
                     <option *ngFor="let opt of users" [ngValue]="opt.uid">{{opt.email}}</option>
                 </select>
             </div>
@@ -62,9 +64,13 @@
             </div>
             <div class="form-group">
                 <label for="cat">Categoria: </label>
-                <select id="usr" class="form-control" required aria-placeholder="Seleccione">
+                <select id="usr" class="form-control" required aria-placeholder="Seleccione" formControlName="categories">
                     <option *ngFor="let opt of categorias" [ngValue]="opt.id">{{opt.name}}</option>
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="nm">Ciudad: </label>
+                <input type="text" class="form-control" formControlName="ciudad">
             </div>
         </div>
         <div class="modal-footer">

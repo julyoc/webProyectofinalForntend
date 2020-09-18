@@ -1,3 +1,29 @@
 <main class="container">
-    <p>contract works!</p>
+    <app-contract-creator *ngIf="role == 'creator'"></app-contract-creator>
+    <app-contract-user *ngIf="role == 'client'"></app-contract-user>
+    <div class="row" *ngIf="role == 'admin'">
+        <div class="offset-2"></div>
+        <div class="col-8">
+            <form [formGroup]="form" class="row" (ngSubmit)="asCreador()">
+                <div class="col form-group">
+                    <select class="form-control" formControlName="selec">
+                        <option *ngFor="let item of data" [ngValue]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col form-group">
+                    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Entrar como <strong>Creador</strong></button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary" (click)="asCliente()">Entrar como <strong>Cliente</strong></button>
+        </div>
+        <div class="col">
+            <button class="btn btn-info" (click)="asRep()">Abrir Informe</button>
+        </div>
+    </div>
+    <hr *ngIf="role == 'admin'">
+    <app-contract-creator *ngIf="adminrole=='cre'" [id]="creatorid"></app-contract-creator>
+    <app-contract-user *ngIf="adminrole =='cli'"></app-contract-user>
+    <app-contract-reporte *ngIf="adminrole == 'rep'"></app-contract-reporte>
 </main>

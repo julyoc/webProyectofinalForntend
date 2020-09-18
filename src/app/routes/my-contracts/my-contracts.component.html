@@ -1,0 +1,27 @@
+<main class="container">
+    <div *ngFor="let item of data; index as i">
+        <section class="row">
+            <article class="offset-4"></article>
+            <article class="col">
+                <div class="card" style="width: 30em;">
+                    <div class="card-header">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <p class="card-title">Creador: {{item.creatorId}}</p>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle">Requerimientos:</h6>
+                        <br>
+                        <p class="card-text" *ngFor="let req of item.requerimientos; index as j">{{j}}.) {{req}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <p>$: <code><strong>{{item.precio}}</strong></code></p>
+                        <p *ngIf="item.valid">El creador ha confirmado el contrato</p>
+                        <p *ngIf="!item.valid">Esperando confirmacion del creador</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+        <br>
+    </div>
+</main>
+<div style="height: 10em;"></div>

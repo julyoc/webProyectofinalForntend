@@ -5,7 +5,7 @@ import { User } from '../models/user';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LocalStorageService } from 'ngx-localstorage';
-
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -20,7 +20,7 @@ export class AuthService {
   });
   token: any;
 
-  constructor(private auth: AngularFireAuth, private http: HttpClient, private storage: LocalStorageService) { }
+  constructor(private auth: AngularFireAuth, private http: HttpClient, private storage: LocalStorageService, private rute: Router) { }
 
   register(data: User) {
     return this.http.post<{id: string, massage: string}>(this.baseurl.concat('/register'), data, {headers: this.headers}).pipe(catchError(this.handleError));
@@ -30,6 +30,9 @@ export class AuthService {
     this.auth.signOut();
     this.headers.delete('user');
     this.storage.remove('user');
+    this.headers.delete('role');
+    this.storage.remove('role');
+    this.rute.navigate(['']);
   }
 
 
@@ -38,6 +41,10 @@ export class AuthService {
       values.user.getIdToken().then(value => {
         this.storage.set('user', JSON.stringify(values.user));
         this.headers.set('user', JSON.stringify(values.user));
+        this.http.post<{id: string, massage: string, role: string}>(this.baseurl.concat('/authorizate'), {uid:values.user.uid}, {headers: this.headers}).pipe(catchError(this.handleError)).subscribe(vv => {
+          this.storage.set('role', JSON.stringify(vv.role));
+          this.headers.set('role', JSON.stringify(vv.role));
+        });
       });
     }).catch(err => {throw err}).finally(() => {
       cb();
